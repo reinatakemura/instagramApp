@@ -1,0 +1,60 @@
+.main { 
+  max-width: 960px;
+  margin: 0 auto;
+  width: 90%;
+  padding: 100px 75px;
+  //? padding: 100px 75px 100px;
+  //? display: block;
+  flex: 1;
+  flex-basis: auto; //フレックスアイテムの基本の幅を指定する:フレックスアイテムの内容に合わせて自動的に幅が指定
+  box-sizing: border-box; //パディングとボーダーを幅と高さに含める
+}
+
+.devise-card {
+  border: none;
+}
+
+.form-wrap {
+  max-width: 400px;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.logo-img {
+  background-image: image-url("logo.png");
+  background-repeat: no-repeat;
+  height: 56px;
+  width: 180px;
+  //? background-size: 160px;
+  background-size: 180px!important;
+}
+
+.form-control {
+  border: 1px solid #dcdfe6;
+  font-size: inherit; //強制的に親要素を継承する
+}
+
+.devise-link {
+  text-align: center;
+  margin: 16px 0;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column; //積み重なるように配置する
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
+@media screen and (max-width: 768px) {
+  // ビューポートサイズ中以下は、devise-cardを分離させない
+  .main {
+    padding: 75px 0;
+  }
+  .devise-card {
+    background-color: #fafafa;
+  }
+}

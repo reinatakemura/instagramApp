@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>InstagramApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <%# スマートフォンのスクリーンでの拡大・縮小に関する設定ができます。initial-scale=1、つまり拡大や縮小しない画面を見せる %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div id="wrapper"> <%# footerを最下部に固定するため %>
+      <%= render 'partial/navbar' if current_user %>
+      
+      <% if flash[:notice] %>
+        <div class="alert alert-info">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      
+      <div class="container">  <%# Bootstrapでサイトのコンテンツを中央に配置して水平方向に埋め込む手段を提供 %>
+        <%= yield %>
+      </div>
+
+      <%= render 'partial/footer' %>
+    </div>
+  </body>
+</html>
