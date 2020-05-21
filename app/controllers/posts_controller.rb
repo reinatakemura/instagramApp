@@ -13,6 +13,7 @@ class PostsController < ApplicationController
     else
       redirect_to root_path
       flash[:notice] = "投稿に失敗しました"
+    end
   end
 
   private
