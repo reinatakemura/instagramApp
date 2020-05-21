@@ -6,4 +6,7 @@ Rails.application.routes.draw do
 
   get '/users/:id', to: 'users#show', as: 'user' # 後でresourcesに変更する
 
+  resources :posts, only: [:new, :create] do
+    resources :photos, only: [:create]
+  end
 end
