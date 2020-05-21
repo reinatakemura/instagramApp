@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!  # 投稿された画像はサインインしたユーザーのみに見える
+
   def new
     @post = Post.new
     @post.photos.build  # モデルを関連付けして、newインスタンスを作成
