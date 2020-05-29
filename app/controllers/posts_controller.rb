@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!  # 投稿された画像はサインインしたユーザーのみに見える
+  before_action :set_post, only: [:show, :destroy]
 
   def index
     # gem kaminariにて、ページごとに10投稿ずつ表示するようにする
@@ -24,11 +25,23 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by(id: params[:id]) # 受け取ったHTTPリクエストからidを判別し、指定のレコード1つを@postに代入
+  end
+
+  def destroy
+    if @post.user == current_user # 投稿したユーザーと現在サインインしているユーザーが等しければ、真を返す条件式
+      flash[:notice] = "投稿が削除されました" if @post.destroy
+    else
+      flash[:alert] = "投稿の削除に失敗しました"
+    end
+    redirect_to root_path
   end
 
   private
   def post_params
     params.require(:post).permit(:caption, photos_attributes: [:image]).merge(user_id: current_user.id)
+  end
+
+  def set_post
+    @post = Post.find_by(id: params[:id]) # 受け取ったHTTPリクエストからidを判別し、指定のレコード1つを@postに代入
   end
 end
