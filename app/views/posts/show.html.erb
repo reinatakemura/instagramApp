@@ -15,7 +15,7 @@
             <%= link_to user_path(@post.user), class: "black-color no-text-decoration post-user-name", title: "@post.user.name" do %>
               <strong><%= @post.user.name %></strong>
             <% end %>
-            <% if @post.user.id == current_user.id %>
+            <% if @post.user_id == current_user.id %>
               <%= link_to post_path(@post), method: :delete, class: "ml-auto mx-0 my-auto" do %>
                 <div class="delete-post-icon">
                 </div>
@@ -31,7 +31,20 @@
           </div>
         </div>
         <div class="row parts">
+          <div id="like-icon-post-<%= @post.id.to_s %>">
+            <% if @post.liked_by(current_user).present? %>
+              <%= link_to "いいねを取り消す", post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: "loved hide-text" %>
+              <%# 「いいねに紐づいている投稿の情報（@post.idが投稿のid）」と「複数のいいねのうち、どのいいねなのかの情報（@post.liked_by(current_user)が現在ログインしているユーザーがいいねした投稿のid）」 %>
+            <% else %>
+              <%= link_to "いいね", post_liked_path(@post), method: :post, remote: true, class: "love hide-text" %>
+            <% end %>
+          </div>
         </div>
+
+        <div id="like-text-post-<%= @post.id.to_s %>">
+          <%= render "like_text", {likes: @post.likes } %>
+        </div>
+
         <div class="post-time">
           <%= time_ago_in_words(@post.created_at).upcase %>前
           <hr>
